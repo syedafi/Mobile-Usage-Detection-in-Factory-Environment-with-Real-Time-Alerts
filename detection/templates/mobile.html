@@ -1,0 +1,147 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon Task: Mobile Usage Detection in Factory Environment with Real-Time Alerts</title>
+    
+    <!-- AdminLTE CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css" rel="stylesheet">
+    
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <!-- AdminLTE JS -->
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/js/adminlte.min.js"></script>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="#" class="brand-link">
+                <img src="file:///D:/Users/sammu/Downloads/a24c8f4294fb-LivNSenseLogo-1616753765605.jpeg" alt="LivNSense Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">LivNSense</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Removed "Home" menu item -->
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Main content -->
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <h1 class="m-0 text-dark">Hackathon Task: Mobile Usage Detection in Factory Environment with Real-Time Alerts</h1>
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="container-fluid">
+                    
+                    <!-- Form to upload the video and input email -->
+                    <div class="card">
+                        <div class="card-body">
+                            <form id="mobile-detection-form" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="video">Choose a video:</label>
+                                    <input type="file" class="form-control" id="video" name="video" accept="video/*" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Enter your email:</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+
+                            <!-- Loading Spinner -->
+                            <div id="loading-message" class="alert alert-info mt-3" style="display:none;">
+                                <span>Processing video, please wait...</span>
+                                <div class="spinner-border text-info ml-3" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+
+                            <!-- Result Display -->
+                            <div id="result" class="mt-4"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#mobile-detection-form").submit(function(event) {
+                event.preventDefault(); // Prevent default form submission
+                
+                // Show the loading message and spinner
+                $('#loading-message').show();
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/api/mobile-detection/',  // API endpoint
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        // Hide the loading spinner
+                        $('#loading-message').hide();
+
+                        // Handle success and display the result
+                        $('#result').html(`<h3>Processing Result:</h3>`);
+
+                        if(response.detected_frame) {
+                            $('#result').append(` 
+                                <div class="alert alert-success">
+                                    <p>${response.message}</p>
+                                    <p><strong>Detected Frame:</strong></p>
+                                    <img src="data:image/jpeg;base64,${response.detected_frame}" alt="Detected Frame" class="img-fluid img-thumbnail">
+                                </div>
+                            `);
+                        }
+                        
+                        if(response.not_detected_frame) {
+                            $('#result').append(` 
+                                <div class="alert alert-warning">
+                                    <p>${response.message}</p>
+                                    <p><strong>Not Detected Frame:</strong></p>
+                                    <img src="data:image/jpeg;base64,${response.not_detected_frame}" alt="Not Detected Frame" class="img-fluid img-thumbnail">
+                                    <p><strong>No mobile detected in this frame.</strong></p>
+                                </div>
+                            `);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Hide the loading spinner
+                        $('#loading-message').hide();
+
+                        // Handle error
+                        $('#result').html(`
+                            <h3>Error:</h3>
+                            <div class="alert alert-danger">
+                                <p>${xhr.responseJSON.message || "An error occurred. Please try again."}</p>
+                            </div>
+                        `);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

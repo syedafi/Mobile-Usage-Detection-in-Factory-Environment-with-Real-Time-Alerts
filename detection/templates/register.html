@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- AdminLTE CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        /* General Styling */
+        body {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            margin: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9); /* Slightly opaque background */
+            text-align: center;
+            animation: slideIn 1s ease-out, fadeIn 1.5s ease-in-out;
+        }
+
+        .login-logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+            margin-bottom: 15px;
+            animation: fadeInText 2s ease-in-out;
+        }
+
+        .card {
+            padding: 20px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .btn-block {
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-block:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-password {
+            cursor: pointer;
+        }
+
+        .input-group-append .fa {
+            color: #6c757d;
+            transition: color 0.3s ease;
+        }
+
+        .input-group-append .fa:hover {
+            color: #007bff;
+        }
+
+        #message {
+            color: #28a745;
+            font-weight: bold;
+            animation: fadeIn 2s ease-in;
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            .login-box {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="login-box">
+            <div class="login-logo">Mobile Usage Detection in Factory Environment with Real-Time Alerts</div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title" id="email-verification-title" style="color: #007bff;">Email Verification</h3>
+                </div>
+                <div class="card-body">
+                    <div id="email-verification-container">
+                        <div class="form-group">
+                            <label for="email">Enter your email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <button id="get-otp" class="btn btn-primary btn-block">Get OTP</button>
+                        <div id="wait-message" class="mt-2 text-warning" style="display: none;">Please wait...</div>
+
+
+                        <div id="otp-container" class="form-group mt-3" style="display: none;">
+                            <label for="otp">Enter OTP</label>
+                            <input type="text" class="form-control" id="otp" placeholder="Enter OTP" required>
+                            <button id="verify-otp" class="btn btn-success btn-block mt-2">Verify OTP</button>
+                        </div>
+                    </div>
+                    
+                    <div id="signup-container" class="form-group mt-3" style="display: none;">
+                        <!-- Username -->
+                        <label for="username">Enter your username</label>
+                        <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                    
+                        <!-- Password -->
+                        <label for="password">Enter your password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary toggle-password" type="button" data-toggle="password" data-target="#password">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <!-- Confirm Password -->
+                        <label for="confirm_password" class="mt-3">Confirm your password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="confirm_password" placeholder="Confirm your password" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary toggle-password" type="button" data-toggle="password" data-target="#confirm_password">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <small class="form-text text-muted mt-1">Please remember your password to log in.</small>
+                    
+                        <!-- Organization -->
+                        <label for="organization" class="mt-3">Enter your organization</label>
+                        <input type="text" class="form-control" id="organization" placeholder="Enter your organization" required>
+                    
+                        <!-- Phone Number -->
+                        <label for="phone_number" class="mt-3">Enter your phone number</label>
+                        <input type="text" class="form-control" id="phone_number" placeholder="Enter your phone number" required>
+                    
+                        <!-- Terms and Conditions -->
+                        <div class="form-check mt-3">
+                            <input type="checkbox" class="form-check-input" id="terms" required>
+                            <label class="form-check-label" for="terms">
+                                I agree to the <a href="Terms and Conditions.html" target="_blank">Terms and Conditions</a>.
+                            </label>
+                        </div>
+                    
+                        <!-- Sign Up Button -->
+                        <button id="signup" class="btn btn-primary btn-block mt-3" disabled>Sign Up</button>
+                    </div>
+                    
+                    <!-- Modal for messages (both success and error) -->
+                    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="message-body">
+                                    <!-- Message will be inserted here -->
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Okay</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        // API URLs
+                        const verifyEmailUrl = 'http://127.0.0.1:8000/api/verify-email/';
+                        const verifyOtpUrl = 'http://127.0.0.1:8000/api/verify-otp/';
+                        const signupUrl = 'http://127.0.0.1:8000/api/signup/';
+                        
+                        // Function to display messages in the modal
+                        function showMessage(message, type = 'error') {
+                            const messageBody = $('#message-body');
+                            if (type === 'success') {
+                                messageBody.html(`<div class="alert alert-success">${message}</div>`);
+                            } else {
+                                messageBody.html(`<div class="alert alert-danger">${message}</div>`);
+                            }
+                            $('#messageModal').modal('show');
+                        }
+                    
+                        // Toggle Password Visibility
+                        $(document).on('click', '.toggle-password', function() {
+                            const input = $($(this).data('target'));
+                            const icon = $(this).find('i');
+                            const type = input.attr('type') === 'password' ? 'text' : 'password';
+                            input.attr('type', type);
+                            icon.toggleClass('fa-eye fa-eye-slash');
+                        });
+                                            
+                        // Get OTP
+                        $('#get-otp').click(function() {
+                            const email = $('#email').val();
+                            const waitMessage = $('#wait-message');
+                            if (email) {
+                                // Display the wait message and disable the button
+                                waitMessage.show(); // Show the wait message
+                                const otpButton = $('#get-otp');
+                                otpButton.prop('disabled', true);
+
+                                // Timeout to re-enable the button after a delay (e.g., 30 seconds)
+                                setTimeout(function() {
+                                    otpButton.prop('disabled', false);
+                                    waitMessage.hide(); // Hide the wait message after timeout
+                                }, 30000); // 30 seconds
+
+                                // Make the AJAX request to get the OTP
+                                $.ajax({
+                                    url: verifyEmailUrl,
+                                    method: 'POST',
+                                    data: JSON.stringify({ email: email }),
+                                    contentType: 'application/json',
+                                    success: function(response) {
+                                        showMessage(response.message, 'success');
+                                        $('#otp-container').show();
+                                    },
+                                    error: function(xhr) {
+                                        // Check if the response contains a "message" key
+                                        const errorMessage = xhr.responseJSON?.message || xhr.responseJSON?.error || 'Failed to send OTP. Please try again.';
+                                        showMessage(errorMessage, 'error');
+
+                                        // Re-enable the button and hide the wait message on failure
+                                        otpButton.prop('disabled', false);
+                                        waitMessage.hide();
+                                    }
+                                });
+                            } else {
+                                showMessage('Please enter a valid email address.', 'error');
+                            }
+                        });
+
+                    
+                        // Verify OTP
+                        $('#verify-otp').click(function() {
+                            const otp = $('#otp').val();
+                            const email = $('#email').val(); // Use the email input directly here
+                            if (otp && email) {
+                                $.ajax({
+                                    url: verifyOtpUrl,
+                                    method: 'POST',
+                                    data: JSON.stringify({ otp: otp, email: email }),
+                                    contentType: 'application/json',
+                                    success: function(response) {
+                                        showMessage(response.message, 'success');
+                                        $('#otp-container').hide();
+                                        $('#email-verification-title').remove(); // Remove the card title
+                                        $('#email-verification-container').hide(); // Hide email verification form
+                                        $('#signup-container').show(); // Show signup form
+                                    },
+                                    error: function(xhr) {
+                                        // Use the exact error message from the API response
+                                        const errorMessage = xhr.responseJSON?.error || 'Failed to verify OTP. Please try again.';
+                                        showMessage(errorMessage, 'error');
+                                    }
+                                });
+                            } else {
+                                showMessage('Please enter both OTP and email.', 'error');
+                            }
+                        });
+                    
+                        // Track the status of the checkbox
+                        let isTermsAccepted = false;
+
+                        // Listen for changes on the checkbox
+                        $('#terms').change(function() {
+                            isTermsAccepted = $(this).is(':checked');
+                            console.log('Checkbox status:', isTermsAccepted); // Log the status for debugging
+                            // Enable or disable the Sign Up button based on checkbox status
+                            $('#signup').prop('disabled', !isTermsAccepted);
+                        });
+
+                        // Signup User
+                        $('#signup').click(function() {
+                            const username = $('#username').val();
+                            const password = $('#password').val();
+                            const confirmPassword = $('#confirm_password').val();
+                            const organization = $('#organization').val();
+                            const phoneNumber = $('#phone_number').val();
+                            const email = $('#email').val();
+
+                            if (username && password && confirmPassword && organization && phoneNumber && email) {
+                                if (!isTermsAccepted) {
+                                    showMessage('You must accept the Terms and Conditions.', 'error');
+                                    return;
+                                }
+
+                                if (password === confirmPassword) {
+                                    $.ajax({
+                                        url: signupUrl,
+                                        method: 'POST',
+                                        data: JSON.stringify({
+                                            email: email,
+                                            username: username,
+                                            password: password,
+                                            confirm_password: confirmPassword,
+                                            organization: organization,
+                                            phone_number: phoneNumber
+                                        }),
+                                        contentType: 'application/json',
+                                        success: function(response) {
+                                            showMessage(response.message, 'success');
+                                            setTimeout(function() {
+                                                window.location.href = 'login.html';
+                                            }, 3000);
+                                        },
+                                        error: function(xhr) {
+                                            // Extract the error message from the response
+                                            const errorMessage = xhr.responseJSON?.error || xhr.responseJSON?.message || 'Failed to sign up. Please try again.';
+                                            
+                                            // Display the error message using showMessage function
+                                            showMessage(errorMessage, 'error');
+                                        }
+                                    });
+                                } else {
+                                    showMessage('Passwords do not match.', 'error');
+                                }
+                            } else {
+                                showMessage('Please fill in all fields.', 'error');
+                            }
+                        });
+
+                    </script>
+                    
+    
+
+    <!-- AdminLTE and Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

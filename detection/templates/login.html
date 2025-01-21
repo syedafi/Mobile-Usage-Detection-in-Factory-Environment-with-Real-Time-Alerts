@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Usage Detection in Factory Environment with Real-Time Alerts</title>
+    <!-- AdminLTE CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Custom CSS for Login Page */
+        body {
+            background-color: #ffffff; /* Set background color to white */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            /* Background Image */
+        
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            margin: auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            animation: slideIn 1s ease-out, fadeIn 1.5s ease-in-out;
+        }
+
+        .login-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+            animation: fadeInText 2s ease-in-out;
+        }
+
+        .login-card-body {
+            padding: 20px;
+        }
+
+        .login-box-msg {
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group-text {
+            background: #007bff;
+            color: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, rgba(36, 123, 160, 1) 0%, rgba(0, 212, 255, 1) 100%);
+            border: none;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(90deg, rgba(0, 212, 255, 1) 0%, rgba(36, 123, 160, 1) 100%);
+        }
+
+        .alert {
+            margin-top: 10px;
+            transition: opacity 0.3s;
+        }
+
+        /* Focus styles */
+        input:focus,
+        button:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+        /* Slide-in animation */
+        @keyframes slideIn {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Text fade-in animation */
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Add bold style and slide-in animation for AUTOMATED ANALYTICS */
+        .container {
+            width: 420px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container::before {
+            content: "Mobile Usage Detection in Factory Environment with Real-Time Alerts";
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 22px;
+            font-weight: bold;
+            color: #007bff; /* Both "Automated" and "Analytics" will have the same color */
+            z-index: 3;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 6px rgba(0, 123, 255, 0.6);
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            animation: slideIn 1s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 576px) {
+            .login-box {
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <b>Mobile Usage Detection in Factory Environment with Real-Time Alerts</b>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+
+                <form id="login-form">
+                    <div class="input-group mb-3">
+                        <input type="text" id="username" class="form-control" placeholder="Username" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <i class="fa fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" id="password" class="form-control" placeholder="Password" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                            <div class="input-group-text" id="toggle-password">
+                                <i class="fa fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- /.col -->
+                        <div class="col-12">
+                            <button type="button" id="login" class="btn btn-primary btn-block">Sign In</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <div id="login-error" class="mt-3"></div>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+
+    <script>
+        // API URL for login
+        const loginUrl = 'http://127.0.0.1:8000/api/login/';
+
+        // Login User
+        $('#login').click(function() {
+            const username = $('#username').val();
+            const password = $('#password').val();
+
+            if (username && password) {
+                $.ajax({
+                    url: loginUrl,
+                    method: 'POST',
+                    data: JSON.stringify({ username: username, password: password }),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        // Check if the API returned the "message" key
+                        const successMessage = response?.message || 'Login successful.';
+                        $('#login-error').html(`<div class="alert alert-success">${successMessage}</div>`);
+
+                        // Delay redirect to show the message
+                        setTimeout(function() {
+                            window.location.href = 'mobile.html'; // Redirect to dashboard on successful login
+                        }, 2000); // 2-second delay to display the message
+                    },
+                    error: function(xhr) {
+                        const errorMessage = xhr.responseJSON?.error || 'Login failed. Please check your credentials and try again.';
+                        $('#login-error').html(`<div class="alert alert-danger">${errorMessage}</div>`);
+                    }
+                });
+            } else {
+                $('#login-error').html('<div class="alert alert-danger">Please enter both username and password.</div>');
+            }
+        });
+
+
+        // Toggle password visibility
+        $('#toggle-password').click(function() {
+            const passwordField = $('#password');
+            const passwordIcon = $('#toggle-password i');
+            const type = passwordField.attr('type') === 'password' ? 'text' : 'password';
+            passwordField.attr('type', type);
+            passwordIcon.toggleClass('fa-eye fa-eye-slash');
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+</body>
+
+</html>
