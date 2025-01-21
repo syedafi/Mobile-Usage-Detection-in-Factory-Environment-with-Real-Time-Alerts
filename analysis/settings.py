@@ -98,9 +98,9 @@ WSGI_APPLICATION = 'analysis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mobile_project',
-        'USER': 'root',  
-        'PASSWORD': 'root', 
+        'NAME': 'your project name',
+        'USER': 'your user name',  
+        'PASSWORD': 'ryour password', 
         'HOST': 'localhost',  # Set to the host where your MySQL server is running
         'PORT': '3306',  # Default MySQL port
     }
@@ -141,11 +141,11 @@ USE_TZ = True
 
 # Email Backend Configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP server
+EMAIL_HOST = 'Replace with your SMTP server'  # Replace with your SMTP server
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'firdosenanobi20@gmail.com'  # Your email address
-EMAIL_HOST_PASSWORD = 'ndfr ifhg einm axzc' # Your email password
+EMAIL_HOST_USER = 'Your email address'  # Your email address
+EMAIL_HOST_PASSWORD = 'Your email password' # Your email password
 EMAIL_USE_SSL = False 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

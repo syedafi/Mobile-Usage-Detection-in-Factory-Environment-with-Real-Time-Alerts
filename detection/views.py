@@ -244,11 +244,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.models import User  # Update this to your custom User model if you're using one
 
-import re
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from django.contrib.auth import get_user_model  # Import get_user_model to handle custom user model
-from .models import OTPVerification  # Ensure OTPVerification is imported if it's in the same app
 
 import re
 from django.contrib.auth import get_user_model
